@@ -240,3 +240,27 @@ This code calculates and prints various classification metrics such as accuracy,
 This code plots the training history of an LSTM model by displaying the changes in accuracy and loss over epochs. The first plot shows the training and validation accuracy over epochs, while the second plot shows the training and validation loss over epochs. These visualizations help in understanding the performance and convergence of the model during training.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+### 7: GRU Library
+
+#### 7.1 GRU Model Definition
+
+The code defines a GRU (Gated Recurrent Unit) neural network model for text classification. It starts with an input layer accepting string inputs. The inputs are then vectorized using a text vectorizer and embedded into dense representations. A GRU layer with 64 units and hyperbolic tangent activation function processes the embedded inputs. Finally, a Dense layer with sigmoid activation produces binary classification outputs.
+
+#### 7.2 Model Compilation
+
+The code compiles the GRU model using binary cross-entropy loss and the Adam optimizer. Binary cross-entropy is suitable for binary classification tasks, while the Adam optimizer efficiently updates the model's weights during training. Accuracy is chosen as the metric to evaluate the model's performance.
+
+#### 7.3 Model Training:
+
+This section involves training the GRU model on the training dataset while validating its performance on the test dataset over 5 epochs. The training history is stored for further analysis. This code snippet trains the GRU model using the training data (X_train and Y_train) and validates it on the test data (X_test and Y_test) for 5 epochs. The training history is stored in the variable history_gru.
+
+#### 7.4 Model Accuracy, Macro Average, Weighted Average:
+
+In this step, the trained GRU model is utilized to make predictions on the test dataset. The model predicts the probabilities of the samples belonging to the positive class (1). These probabilities are then converted into binary predictions by considering a threshold of 0.5. Finally, the classification report is printed to assess the performance of the model based on its predictions compared to the ground truth labels.
+
+#### 7.5 Plot Training:
+
+This section presents visualizations of the training progress of the GRU model. Two plots are generated: one illustrating the model accuracy on both the training and validation datasets across different epochs, and the other showing the corresponding loss values. These plots help in understanding how the model's performance evolves during the training process and whether it is overfitting or underfitting.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
