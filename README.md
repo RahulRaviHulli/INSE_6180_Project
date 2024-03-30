@@ -124,3 +124,88 @@ This code snippet evaluates and prints the top 5 most common words and the botto
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+### 5: Create Embedding Layer
+
+#### 5.1 Standard Embedding Layer Configuration
+
+This code defines an embedding layer configuration using the Embedding class from Keras. Here's what each parameter signifies:
+
+- input_dim: The size of the vocabulary, which is the maximum number of tokens that can be represented by the embedding layer.
+- output_dim: The dimensionality of the embedding space. It determines the size of the vector representation for each token.
+- embeddings_initializer: The initialization strategy for the embedding weights. In this case, it's set to "uniform", meaning the weights are initialized using a uniform distribution.
+- input_length: The length of input sequences that will be fed into the embedding layer. This parameter is required if you plan to connect a Flatten or Dense layer downstream, but it's not necessary for LSTM or Conv1D layers.
+Overall, this configuration sets up an embedding layer suitable for tokenizing text data with a vocabulary size of max_vocab_length, producing dense embeddings of dimensionality 128, and input sequences of length max_length.
+
+#### 5.2 Model Definition: Dense Architecture
+
+This code defines a dense neural network architecture for text classification. Here's a breakdown of what each part does:
+
+- inputs: Defines the input layer for the model, specifying the shape and data type of the input data. In this case, it expects input sequences of strings.
+- text_vectorizer(inputs): This is the text vectorization layer previously configured. It converts raw text inputs into sequences of integers.
+- embedding(x): This line applies the embedding layer to the integer sequences obtained from the text vectorization. It converts the integer-encoded tokens into dense vectors of fixed size.
+- layers.GlobalAveragePooling1D(): This layer performs global average pooling over the sequence dimension. It reduces the dimensionality of the input by taking the average of all values across the sequence dimension.
+- layers.Dense(1, activation="sigmoid"): This is the output layer of the model. It consists of a single neuron with a sigmoid activation function, which is commonly used for binary classification tasks.
+- model_1: This line constructs the Keras Model object, specifying the inputs and outputs of the model. The model is named "model_1_dense".
+Overall, this architecture takes string inputs, converts them to integer sequences, applies an embedding layer to obtain dense representations, performs global average pooling to reduce dimensionality, and finally, passes the result through a dense layer with a sigmoid activation function for binary classification.
+
+#### 5.3 Model Compilation
+
+This code compiles the defined model (model_1) with the specified loss function, optimizer, and evaluation metrics. Here's what each argument does:
+
+- loss='binary_crossentropy': This specifies the loss function to use during training. Binary crossentropy is commonly used for binary classification problems like this one.
+
+- optimizer='adam': This specifies the optimizer to use for training the model. Adam is a popular choice due to its adaptive learning rate properties and efficiency in training neural networks.
+
+- metrics=['accuracy']: This specifies the evaluation metric(s) to monitor during training and testing. In this case, it uses accuracy, which measures the proportion of correct predictions made by the model.
+
+With this compilation step, the model is configured for training with the specified loss function, optimizer, and evaluation metric.
+
+#### 5.4 General Model Training
+
+This code trains the compiled model (model_1) using the training data (X_train, Y_train) and validates it on the validation data (X_test, Y_test). Here's what each argument does:
+
+- X_train, Y_train: These are the input features and corresponding target labels for training the model.
+
+- validation_data=(X_test, Y_test): This specifies the validation data to evaluate the model's performance after each epoch. It helps monitor whether the model is overfitting or generalizing well to unseen data.
+
+- epochs=5: This parameter determines the number of training epochs, i.e., the number of times the model will be trained on the entire training dataset. One epoch is a single forward and backward pass of all the training examples.
+
+During training, the model's weights are adjusted iteratively to minimize the specified loss function (binary crossentropy in this case) using the optimizer (Adam) based on the training data. The validation data is used to monitor the model's performance on unseen data and prevent overfitting.
+
+#### 5.5 General Classification
+
+The provided code is for making predictions using a trained model (model_1) on the test data (X_test). It then converts the predicted probabilities into binary predictions by thresholding at 0.5, assigning values of 1 for probabilities greater than or equal to 0.5 and 0 otherwise.
+
+Here's a breakdown of the code:
+
+- Y_pred = model_1.predict(X_test): This line uses the trained model model_1 to predict the labels for the test data X_test.
+
+- Y_pred = (Y_pred >= 0.5).astype("int"): This line converts the predicted probabilities (Y_pred) into binary predictions. It assigns 1 to elements where the predicted probability is greater than or equal to 0.5, and 0 otherwise.
+
+The final line is not explicitly shown but it's implied that Y_pred contains the binary predictions for the test data, which can then be used for evaluation or further analysis.
+
+#### 5.6 Accuracy, Macro Average, Weighted Average
+
+The provided code calculates and prints a classification report, including metrics such as accuracy, macro average, and weighted average, based on the true labels (Y_test) and the predicted labels (Y_pred). This report provides a comprehensive overview of the model's performance across different classes.
+
+Here's what each line does:
+
+- print(classification_report(Y_test, Y_pred)): This line generates a classification report using the true labels (Y_test) and the predicted labels (Y_pred). The report includes metrics such as precision, recall, F1-score, and support for each class, as well as overall accuracy, macro average, and weighted average.
+The classification report provides valuable insights into the model's performance, helping to assess its effectiveness in classifying instances from each class and overall.
+
+#### 5.7 Using Logistic Regression for Classification
+
+- TF-IDF Vectorizer Definition: It initializes a TF-IDF vectorizer (TfidfVectorizer) with a specified maximum number of features (max_features). This vectorizer converts text data into numerical features based on the TF-IDF (Term Frequency-Inverse Document Frequency) representation.
+
+- Logistic Regression Classifier Definition: It initializes a logistic regression classifier (LogisticRegression). This classifier will be used for binary classification tasks.
+
+- Pipeline Creation: It creates a pipeline using the Pipeline class from scikit-learn. The pipeline consists of two steps: TF-IDF vectorization ('tfidf') and logistic regression classification ('clf'). This pipeline allows for the seamless application of both preprocessing (vectorization) and classification.
+
+- Model Training: It trains the pipeline on the training data (X_train, Y_train) using the fit method.
+
+- Predictions: It makes predictions on the test data (X_test) using the trained pipeline and stores the predictions in Y_pred.
+
+- Model Evaluation: It evaluates the model's performance by calculating and printing the accuracy score and the classification report using accuracy_score and classification_report functions, respectively. The classification report provides metrics such as precision, recall, F1-score, and support for each class, as well as overall accuracy.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
