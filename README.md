@@ -391,3 +391,41 @@ Plotting Model Loss:
 The training and validation losses over epochs are plotted. The loss and val_loss values from the history_custom_gru object are used. The plot helps in understanding how the loss of the model evolves during training, indicating whether the model is learning effectively. These plots offer valuable information about the training dynamics of the GRU model, enabling assessment of its performance and convergence behavior.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+###  Plotting for Comparisons
+
+#### 10: Plotting for Comparisons
+
+Plotting Model Accuracy:
+
+Here, we visualize the training and validation accuracy of three different models: LSTM, GRU, Custom LSTM and Custom GRU. The training accuracy represents how well the models perform on the training data during the training process, while the validation accuracy indicates their performance on unseen validation data. The purpose of plotting these accuracies is to assess how well each model is learning from the data and whether they are overfitting or underfitting.
+
+Training Accuracy:
+
+LSTM Training Accuracy: Accuracy of the LSTM model on the training data.
+GRU Training Accuracy: Accuracy of the GRU model on the training data.
+Custom LSTM Training Accuracy: Accuracy of the Custom LSTM model on the training data.
+Custom GRU Training Accuracy: Accuracy of the Custom GRU model on the training data.
+Validation Accuracy:
+
+LSTM Validation Accuracy: Accuracy of the LSTM model on the validation data.
+GRU Validation Accuracy: Accuracy of the GRU model on the validation data.
+Custom LSTM Validation Accuracy: Accuracy of the Custom LSTM model on the validation data.
+Custom GRU Validation Accuracy: Accuracy of the Custom GRU model on the validation data.
+Plotting Model Loss:
+
+Similar to accuracy, this section visualizes the training and validation loss of the three models: LSTM, GRU, Custom LSTM and Custom GRU. Loss represents the error between the actual and predicted values. Lower loss values indicate better performance. By plotting these losses, we can monitor how well each model is learning and whether they are overfitting or underfitting.
+
+Training Loss:
+
+LSTM Training Loss: Loss of the LSTM model on the training data.
+GRU Training Loss: Loss of the GRU model on the training data.
+Custom LSTM Training Loss: Loss of the Custom LSTM model on the training data.
+Custom GRU Training Loss: Loss of the Custom GRU model on the training data.
+Validation Loss:
+
+LSTM Validation Loss: Loss of the LSTM model on the validation data.
+GRU Validation Loss: Loss of the GRU model on the validation data.
+Custom LSTM Validation Loss: Loss of the Custom LSTM model on the validation data.
+Custom GRU Validation Loss: Loss of the Custom GRU model on the validation data.
+###
