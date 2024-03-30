@@ -209,3 +209,34 @@ The classification report provides valuable insights into the model's performanc
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+### 6: LSTM Library
+
+#### 6.1 LSTM
+
+The code defines an LSTM (Long Short-Term Memory) neural network model for text classification using TensorFlow Keras. It starts by defining the input layer to accept string inputs. The text data is then vectorized using a pre-trained text vectorizer and embedded into dense representations. An LSTM layer with 64 units and a hyperbolic tangent activation function processes the embedded data. Finally, a dense output layer with a sigmoid activation function produces binary classification predictions. This model architecture enables capturing long-range dependencies in sequential data like text, making it suitable for tasks such as sentiment analysis or text classification.
+
+#### 6.2 Model Compilation
+
+The code compiles the previously defined LSTM model (model_2) using binary cross-entropy as the loss function, the Adam optimizer, and accuracy as the evaluation metric. This compilation step configures the training process by specifying how the model should learn from the provided data and how its performance should be measured during training.
+
+#### 6.3 Model Training
+
+This code trains the LSTM model (model_2) on the training data (X_train and Y_train) for 5 epochs while validating its performance on the test data (X_test and Y_test). The training process involves adjusting the model's weights based on the optimization algorithm and the specified loss function, with validation data used to monitor the model's performance on unseen examples during training. The history_model_2 object stores the training history, including metrics such as loss and accuracy, for later analysis or visualization.
+
+#### 6.4 Model Prediction
+
+The trained model (model_2) is used to make predictions on the test data (X_test). The predicted probabilities for each instance in the test data are obtained using the predict method. These probabilities are then converted into binary predictions by thresholding at 0.5, classifying instances as either positive or negative based on whether their predicted probability is greater than or equal to 0.5. Finally, a classification report is generated to evaluate the model's performance on the test data, providing metrics such as precision, recall, and F1-score for each class, as well as overall accuracy. This allows for a comprehensive assessment of the model's predictive capabilities.
+
+#### 6.5 Classification
+
+This code performs classification using the trained LSTM model (model_2) on the test data (X_test). It generates predictions (Y_pred) by applying the model to the test data and then converts the predicted probabilities to binary labels by thresholding at 0.5, classifying instances as positive if the predicted probability is greater than or equal to 0.5, and negative otherwise.
+
+#### 6.6 Accuracy, Macro Average, Weighted Average
+
+This code calculates and prints various classification metrics such as accuracy, macro average, and weighted average based on the ground truth labels (Y_test) and the predicted labels (Y_pred). The classification_report function from scikit-learn generates a detailed report containing precision, recall, F1-score, and support for each class, along with macro and weighted averages of these metrics across all classes.
+
+#### 6.7 Plot training history
+
+This code plots the training history of an LSTM model by displaying the changes in accuracy and loss over epochs. The first plot shows the training and validation accuracy over epochs, while the second plot shows the training and validation loss over epochs. These visualizations help in understanding the performance and convergence of the model during training.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
