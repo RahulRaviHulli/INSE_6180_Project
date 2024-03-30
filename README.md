@@ -3,7 +3,7 @@ Using sentiment analysis on Reddit comments and posts can provide valuable insig
 
 ##Below is an explanation of the project at depth
 ### 1: Setting the Environment
-####1.1 Mounting Google Drive
+#### 1.1 Mounting Google Drive
 
 These three lines of code are used to mount Google Drive in Google Colab, which allows you to access files and directories stored in your Google Drive from within the Colab environment. Here's a brief explanation of each line:
 
