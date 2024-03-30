@@ -59,7 +59,7 @@ Finally, the code creates a set called stopword containing English stopwords obt
 
 The code data = pd.read_csv("depression_dataset_reddit_cleaned.csv") reads a CSV file named "depression_dataset_reddit_cleaned.csv" into a pandas DataFrame called data. This dataset likely contains cleaned Reddit comments related to depression. By using the read_csv function from the pandas library, the data is loaded into memory, allowing for further analysis and processing.
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ### 2: Working on the Dataset
 
@@ -81,4 +81,34 @@ The code data.value_counts().sum() attempts to count the total number of occurre
 
 The code data['is_depression'].value_counts() calculates the frequency of each class label (depression and non-depression) in the 'is_depression' column of the DataFrame data. Following this, sns.countplot(x='is_depression', data=data) creates a count plot to visualize the distribution of classes, where 'is_depression' is plotted on the x-axis, showing the count of each class.
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+### 3: Data Preprocessing
+
+#### 3.1 What does the comments look like?
+
+This code retrieves the contents of the "clean_text" column for the third row (index 2) of the DataFrame data. It displays the text of the comment at index 2.
+
+#### 3.2 Preprocessing Function
+
+This code defines a function named clean for text preprocessing. It performs the following operations:
+
+- Converts the text to lowercase.
+- Removes square brackets and their contents using a regular expression.
+- Removes URLs using a regular expression.
+- Removes HTML tags using a regular expression.
+- Removes punctuations using the string.punctuation set.
+- Removes newline characters.
+- Removes alphanumeric characters that contain digits.
+- Applies stemming using the Porter Stemmer algorithm to reduce words to their root form. Finally, it returns the preprocessed text.
+
+#### 3.3 Text Preprocessing: Cleaning the Text Data
+
+This code segment applies the clean function defined earlier to the "clean_text" column of the dataset data. It preprocesses the text data by cleaning it. After preprocessing, it designates the preprocessed text as x and the corresponding target variable "is_depression" as y. This prepares the data for further processing and model training.
+
+#### 3.4 Traing and Test Split
+
+This code segment applies the clean function defined earlier to the "clean_text" column of the dataset data. It preprocesses the text data by cleaning it. After preprocessing, it designates the preprocessed text as x and the corresponding target variable "is_depression" as y. This prepares the data for further processing and model training.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
