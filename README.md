@@ -326,3 +326,68 @@ The plt.plot() function is used to plot two lines: one for training accuracy (hi
 Similar to accuracy plotting, the plt.plot() function is used to plot training loss (history.history['loss']) and validation loss (history.history['val_loss']). Labels, title, xlabel, ylabel, and legend are added as before. The plot is displayed using plt.show(). These plots are essential for visualizing the training progress of the custom LSTM model. They help in understanding how the model's accuracy and loss evolve over epochs, providing insights into its performance and potential areas for improvement.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+### 9: Custom GRU Function
+
+#### 9.1 Define Custom GRU Layer
+
+Initialization:
+
+The init method initializes the custom GRU layer with the specified number of units and whether it should return sequences for each time step. Build Method:
+
+In the build method, weights for the update gate (z), reset gate (r), and candidate hidden state are initialized. Weights are created using add_weight with appropriate shapes and initializers. Call Method:
+
+The call method defines the forward pass of the custom GRU layer. For each time step, the input is processed through the update gate (z), reset gate (r), and candidate hidden state (h_tilda). The hidden state is updated based on the update gate and the candidate hidden state using the GRU update equations. The updated hidden states are stored in a list for each time step. Finally, if return_sequences is True, the list of hidden states is stacked along the time step axis and returned; otherwise, only the last hidden state is returned. This custom GRU layer allows for flexibility in building GRU-based neural network architectures and can be used as a drop-in replacement for the built-in GRU layer provided by TensorFlow/Keras.
+
+#### 9.2 Model Definition and Compilation for GPU
+
+Model Definition for GRU:
+
+An input layer is defined with the shape (max_length,), where max_length represents the length of the input sequences. The input is passed through an embedding layer to convert the input sequences into dense vectors. The output of the embedding layer is fed into a custom GRU layer with 64 units. The return_sequences parameter is set to False, indicating that only the final hidden state of the GRU will be returned. Finally, a Dense layer with a sigmoid activation function is added to produce the model's output.
+
+Model Compilation for GRU:
+
+The model is compiled with binary cross-entropy loss and the Adam optimizer. Metrics for evaluation are set to accuracy, which measures the proportion of correctly classified samples. Once the model is defined and compiled, it is ready for training on labeled data for the task of binary classification.
+
+#### 9.3 Preprocess and tokenize the input data for GRU
+
+In this step, the input data is preprocessed and tokenized specifically for the custom GRU model. Here's what's happening:
+
+Preprocessing and Tokenization:
+
+The training and test data are tokenized using the text_vectorizer function. This function converts raw text data into numerical sequences suitable for input to the model.
+The tokenization process involves converting each word in the text data into a unique numerical token. This enables the model to process the textual information effectively.
+Model Training for GRU:
+
+The tokenized training data (X_train_tokenized_gru) and corresponding labels (Y_train) are used to train the custom GRU model.
+The validation data (X_test_tokenized_gru) and labels (Y_test) are provided to evaluate the model's performance during training.
+The model is trained for 5 epochs, allowing it to learn patterns and relationships within the data.
+After training, the model's training history (history_custom_gru) is stored for further analysis and visualization of performance metrics such as accuracy and loss over epochs.
+
+#### 9.4 Live Prediction for GRU
+
+Function Definition:
+
+The function predict_depression_gru takes two arguments: the trained GRU model (model_custom_gru) and the text vectorizer function (text_vectorizer). Inside the function, the user is prompted to enter a text input. The entered text is cleaned using a clean function (assuming it's defined elsewhere) to preprocess the input. The cleaned text is tokenized using the text_vectorizer function to convert it into a numerical sequence. The model predicts the depression likelihood based on the input text sequence. If the predicted probability is greater than or equal to 0.5, it's classified as representing depression; otherwise, it's classified as not representing depression. Live Prediction:
+
+The predict_depression_gru function is called with the trained GRU model (model_custom_gru) and the text vectorizer function (text_vectorizer) as arguments. The user is prompted to enter a text, and the model predicts whether the input text represents depression or not. Generate Predictions:
+
+Predictions are generated for the test data (X_test_tokenized_gru) using the trained GRU model (model_custom_gru). Predicted probabilities are thresholded at 0.5 to obtain binary predictions (y_pred_labels_gru).
+
+#### 9.5 Generate and Print Classification report for GRU
+
+Generate Classification Report:
+
+The classification_report function from Scikit-learn is used to generate a classification report based on the true labels (Y_test) and the predicted labels (y_pred_labels_gru) obtained from the GRU model. Print Classification Report:
+
+The classification report for the GRU model is printed to the console. The report provides metrics such as precision, recall, F1-score, and support for each class, along with averages. This classification report provides detailed insights into the performance of the GRU model in classifying the test data, including metrics for both positive and negative classes, aiding in understanding the model's strengths and weaknesses.
+
+#### Plotting Model Accuracy:
+
+The training and validation accuracies over epochs are plotted. The accuracy and val_accuracy values from the history_custom_gru object are used. The plot provides insights into how the accuracy of the model changes over training epochs.
+
+Plotting Model Loss:
+
+The training and validation losses over epochs are plotted. The loss and val_loss values from the history_custom_gru object are used. The plot helps in understanding how the loss of the model evolves during training, indicating whether the model is learning effectively. These plots offer valuable information about the training dynamics of the GRU model, enabling assessment of its performance and convergence behavior.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
