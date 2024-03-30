@@ -264,3 +264,65 @@ In this step, the trained GRU model is utilized to make predictions on the test 
 This section presents visualizations of the training progress of the GRU model. Two plots are generated: one illustrating the model accuracy on both the training and validation datasets across different epochs, and the other showing the corresponding loss values. These plots help in understanding how the model's performance evolves during the training process and whether it is overfitting or underfitting.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+### 8: Custom LSTM Function
+
+#### 8.1 Define Custom LSTM
+
+The CustomLSTM class defines a custom implementation of the Long Short-Term Memory (LSTM) layer in TensorFlow/Keras. Here's what's happening in the code:
+
+- Initialization: The constructor (__init__ method) initializes the LSTM layer with the specified number of units and whether to return sequences for each time step.
+
+- Building the Layer: The build method initializes the weights and biases for the LSTM gates (Forget Gate, Input Gate, Candidate Cell State, and Output Gate). These weights and biases are trainable parameters learned during training.
+
+- Forward Pass: The call method performs the forward pass of the LSTM layer. It iterates over each time step in the input sequence, computes the LSTM gates and cell state updates, and computes the hidden state output.
+
+- LSTM Gates: The LSTM gates (Forget Gate, Input Gate, and Output Gate) control the flow of information through the cell state. They are computed using the input at the current time step (x_t), the previous hidden state (hidden_states), and the learned weights (Wf, Wi, Wo) and biases (bf, bi, bo).
+
+- Cell State Update: The cell state (cell_states) is updated based on the forget gate (f_t), input gate (i_t), and candidate cell state (c_tilda_t). This helps the LSTM layer to remember or forget information over time.
+
+- Hidden State Calculation: The hidden state (hidden_states) is computed using the output gate (o_t) and the updated cell state. This is the output of the LSTM layer.
+
+- Return Sequences: If return_sequences is set to True, the method returns the hidden states for each time step. Otherwise, it returns only the hidden state for the last time step.
+
+This custom LSTM layer provides a flexible and customizable implementation of the LSTM architecture, allowing for experimentation with different configurations and adaptations to specific use cases.
+
+#### 8.2 Model Definition and Compilation
+
+Model Definition:
+
+We define the input layer with the shape of (max_length,) using tf.keras.layers.Input. The input data is passed through the embedding layer (embedding) to convert numerical indices into dense vectors. The embedded sequences are then passed through the custom LSTM layer (CustomLSTM) with 64 units and return_sequences=False, indicating that only the final hidden state is returned. Finally, a dense layer with a sigmoid activation function is added to produce the output predictions. The model is instantiated using tf.keras.Model, with the input and output layers specified. Model Compilation:
+
+We compile the model using model.compile, specifying 'binary_crossentropy' as the loss function for binary classification. The Adam optimizer is used for optimization, and we include 'accuracy' as a metric to monitor during training.
+
+#### 8.3 Preprocess and tokenize the input data
+
+Tokenization: We tokenize the training and test data using the text_vectorizer function. This function converts text data into numerical sequences suitable for input into the model. Model Training:
+
+We train the custom LSTM model (model_custom_lstm) using the tokenized training data (X_train_tokenized) and corresponding labels (Y_train). During training, we validate the model's performance on the tokenized test data (X_test_tokenized) and corresponding labels (Y_test). Training is conducted over 5 epochs, during which the model learns to map tokenized sequences to their corresponding labels.
+
+#### 8.4 Live Prediction
+
+Function Definition (predict_depression):
+
+The function takes two arguments: model (the trained model) and text_vectorizer (a function for vectorizing input text). Inside the function, the user is prompted to enter a text input. The entered text is then passed through a cleaning function (clean) to preprocess it, assuming such a function has been defined elsewhere. The cleaned text is then converted into a list and passed through the text_vectorizer function to convert it into a numerical vector suitable for input to the model. The model then predicts the class probability of the input text being associated with depression. If the predicted probability is greater than or equal to 0.5, the function prints "The input text represents depression." Otherwise, it prints "The input text does not represent depression." Live Prediction:
+
+The predict_depression function is called with the trained model_custom_lstm and text_vectorizer function as arguments to perform live predictions based on user input. Generating Predictions:
+
+After performing live predictions, the same model (model_custom_lstm) is used to generate predictions on the test data (X_test_tokenized). These predictions are then converted into binary labels based on a threshold of 0.5, where any prediction greater than or equal to 0.5 is classified as 1 (representing depression), and anything below 0.5 is classified as 0 (not representing depression).
+
+#### 8.5 Generate and Print Classification Report
+
+The classification_report function is called with two arguments: Y_test (the actual labels of the test dataset) and y_pred_labels (the predicted labels generated by the model). This function computes various metrics such as precision, recall, F1-score, and support for each class (in this case, binary classes: depression and non-depression). The classification report summarizes these metrics for each class and also provides macro and weighted averages across all classes. Print Classification Report:
+
+The generated classification report is stored in the variable report. The classification report is printed to the console using the print function, preceded by a header "Classification Report:". The printed report provides insights into the performance of the model across different metrics and classes, aiding in the evaluation of its performance.
+
+#### 8.6 Plot Training
+
+Plotting Model Accuracy:
+
+The plt.plot() function is used to plot two lines: one for training accuracy (history.history['accuracy']) and another for validation accuracy (history.history['val_accuracy']). The label parameter is set for each line to differentiate between training and validation accuracy. Title, xlabel, ylabel, and legend are added to the plot for clarity. Finally, plt.show() is called to display the plot. Plotting Model Loss:
+
+Similar to accuracy plotting, the plt.plot() function is used to plot training loss (history.history['loss']) and validation loss (history.history['val_loss']). Labels, title, xlabel, ylabel, and legend are added as before. The plot is displayed using plt.show(). These plots are essential for visualizing the training progress of the custom LSTM model. They help in understanding how the model's accuracy and loss evolve over epochs, providing insights into its performance and potential areas for improvement.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
