@@ -1,4 +1,4 @@
-# Sentiment Analysis on Reddit Comments and Posts to detect Depression
+# Sentiment Analysis on Reddit Comments and Posts for OSINT Purposes
 Using sentiment analysis on Reddit comments and posts can provide valuable insights into detecting signs of depression within the community, potentially aiding in early intervention and support. By analyzing the sentiment expressed in these interactions, patterns indicative of depression can be identified, enabling targeted outreach and mental health resources allocation. Leveraging machine learning algorithms, sentiment analysis offers a scalable approach to monitor the emotional well-being of Reddit users and facilitate timely interventions when needed.
 
 ## Below is an explanation of the project at depth
